@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            .trash {
+                height: 50px;
+                width: 50px;
+                background-color: #000;
+                color: #fff;
+                text-align: center;
+                padding: 2px;
+                display: inline-flex;
+                margin: 2px;
+            }
+            .bin {
+                width: 100px;
+                min-height: 100px;
+                height: fit-content;
+                padding: 10px;
+                margin: 5px;
+                border: 1px solid #aaaaaa;
+                display: inline-flex;
+                text-align: center;
+            }
+            </style>
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            }
+
+            function drop(ev, bin) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                if (data.split(" ")[1] === bin.id.split(" ")[1]){
+                    bin.childNodes[0].appendChild(document.getElementById(data));
+                }
+                if ((document.getElementById("trashBox").childElementCount === 0) &&
+                    (document.getElementById("check").childElementCount === 0)) {
+                        setTimeout(() => {
+                            if (alert('Laimėjote!')) {}
+                            else {window.location.reload();}
+                                
+                        }, 1000)
+                        
+                    }
+            }
+
+            function drop2(ev, bin) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                if (data.split(" ")[1] === bin.id.split(" ")[1]){
+                    bin.childNodes[0].appendChild(document.getElementById(data));
+                    var changingId = document.getElementById("t 1");
+                    changingId.id = "tt 2";
+                    changingId.innerHTML = "Šiukšlė 1 (Pl)"
+                }
+            }
+            
+            var trash = [];
+            var item1 = document.createElement("p");
+            item1.className = "trash";
+            item1.innerHTML = "Šiukšlė 1 (X)";
+            item1.id = "t 1";
+            item1.draggable="true";
+            item1.addEventListener("dragstart", function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+            trash.push(item1);
+            
+            var item2 = document.createElement("p");
+            item2.className = "trash";
+            item2.innerHTML = "Šiukšlė 2 (Pl)";
+            item2.id = "t 2";
+            item2.draggable="true";
+            item2.addEventListener("dragstart", function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+            trash.push(item2);
+            
+            var item3 = document.createElement("p");
+            item3.className = "trash";
+            item3.innerHTML = "Šiukšlė 3 (K)";
+            item3.id = "t 3";
+            item3.draggable="true";
+            item3.addEventListener("dragstart", function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+            trash.push(item3);
+            
+            var item4 = document.createElement("p");
+            item4.className = "trash";
+            item4.innerHTML = "Šiukšlė 4 (S)";
+            item4.id = "t 4";
+            item4.draggable="true";
+            item4.addEventListener("dragstart", function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+            trash.push(item4);
+            
+            var item5 = document.createElement("p");
+            item5.className = "trash";
+            item5.innerHTML = "Šiukšlė 5 (Pp)";
+            item5.id = "t 5";
+            item5.draggable="true";
+            item5.addEventListener("dragstart", function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+            trash.push(item5);
+
+            window.onload = () => {
+                var shuffledTrash = trash.sort((a, b) => 0.5 - Math.random());
+                for (let i = 0; i < shuffledTrash.length; i++){
+                    document.getElementById("trashBox").appendChild(shuffledTrash[i]);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <p>Šiukšlės</p>
+        <div id="trashBox" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+        </div>
+        <br>
+        <p>Konteineriai</p>
+        <div class="bin" id="b 2" ondrop="drop(event, this)" ondragover="allowDrop(event)" style="background-color: #e1e820; justify-content: center;"><div style="width: 100px;">Plastikas</div></div>
+        <div class="bin" id="b 4" ondrop="drop(event, this)" ondragover="allowDrop(event)" style="background-color: #20e824; justify-content: center;"><div style="width: 100px;">Stiklas&nbsp</div></div>
+        <div class="bin" id="b 5" ondrop="drop(event, this)" ondragover="allowDrop(event)" style="background-color: #4287f5; justify-content: center;"><div style="width: 100px;">Popierius</div></div>
+        <div class="bin" id="b 3" ondrop="drop(event, this)" ondragover="allowDrop(event)" style="background-color: #757573; justify-content: center;"><div style="width: 100px;">Komnunalinės atliekos</div></div>
+        <br>
+        <p>Papildomi veiksmai</p>
+        <div class="bin" id="b 1" ondrop="drop2(event, this)" ondragover="allowDrop(event)" style="background-color: #dad; justify-content: center;"><div id="check" style="width: 100px;">Išvalyti pakuotę</div></div>
+        
+        </body>
+</html> 
